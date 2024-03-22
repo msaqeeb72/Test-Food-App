@@ -20,4 +20,13 @@ interface FoodItemDao {
     @Query("SELECT * FROM food where category = :category")
     suspend fun getFoodByCategory(category: String): List<FoodItem>
 
+    @Query("SELECT * FROM food where is_favorite = 1")
+    suspend fun getFavoviteList(): List<FoodItem>
+
+    @Query("SELECT * FROM food where food_name LIKE '%'||:text||'%'")
+    suspend fun searchFoodItem(text: String):List<FoodItem>
+
+    @Query("SELECT * FROM food where food_name LIKE '%'||:text||'%' AND is_favorite = 1")
+    suspend fun searchInFavorite(text: String):List<FoodItem>
+
 }

@@ -5,6 +5,9 @@ import com.saqeeb.foodapp.db.dao.FoodItemDao
 import com.saqeeb.foodapp.db.entities.FoodItem
 import com.saqeeb.foodapp.isValid
 import com.saqeeb.foodapp.utils.NetworkResult
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -13,6 +16,11 @@ class FoodRepo @Inject constructor(private val foodAPI: FoodAPI,private val food
     private val _foodList = MutableStateFlow<NetworkResult<ArrayList<FoodItem>>>(NetworkResult.Init())
     val foodList:StateFlow<NetworkResult<ArrayList<FoodItem>>>
         get() = _foodList
+
+
+    private val _favoriteList = MutableStateFlow<NetworkResult<ArrayList<FoodItem>>>(NetworkResult.Init())
+    val favoriteList:StateFlow<NetworkResult<ArrayList<FoodItem>>>
+        get() = _favoriteList
     suspend fun getFoodList(){
         _foodList.emit(NetworkResult.Loading())
         val response = foodAPI.getAllFood("foods")
@@ -46,5 +54,20 @@ class FoodRepo @Inject constructor(private val foodAPI: FoodAPI,private val food
     }
     suspend fun getFoodByCategoryFromDb(category: String):ArrayList<FoodItem>{
         return ArrayList(foodItemDao.getFoodByCategory(category))
+    }
+
+    suspend fun searchFoodInDb(text: String):ArrayList<FoodItem> {
+        return ArrayList(foodItemDao.searchFoodItem(text))
+
+    }
+    suspend fun searchInFavorite(text: String):ArrayList<FoodItem> {
+        return ArrayList(foodItemDao.searchInFavorite(text))
+
+    }
+
+    suspend fun getFavoriteFoods() {
+        _favoriteList.emit(NetworkResult.Loading())
+        val response = foodItemDao.getFavoviteList()
+        _favoriteList.emit(NetworkResult.Success(ArrayList(response)))
     }
 }
