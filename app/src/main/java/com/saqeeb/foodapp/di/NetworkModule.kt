@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -31,6 +32,15 @@ class NetworkModule {
             .connectTimeout(1, TimeUnit.MINUTES)
             .readTimeout(1, TimeUnit.MINUTES)
             .writeTimeout(1, TimeUnit.MINUTES)
+            .addInterceptor(Interceptor {
+                var original = it.request()
+                original = original
+                    .newBuilder()
+                    .addHeader("X-Master-Key",Constants.MASTER_KEY)
+                    .addHeader("X-Access-Key",Constants.ACCESS_KEY)
+                    .build()
+                it.proceed(original)
+            })
             .build()
     }
 

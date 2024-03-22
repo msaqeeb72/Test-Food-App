@@ -32,9 +32,13 @@ data class FoodItem(
 
     val tag: String,
 
-    @SerializedName("timeTaken")
-    @ColumnInfo("timeTaken")
+    @SerializedName("time_taken")
+    @ColumnInfo("time_taken")
     val timeTaken: Int,
+
+    @SerializedName("cart_qty")
+    @ColumnInfo("cart_qty")
+    val cartQty: Int,
 
     @SerializedName("is_favorite")
     @ColumnInfo("is_favorite")

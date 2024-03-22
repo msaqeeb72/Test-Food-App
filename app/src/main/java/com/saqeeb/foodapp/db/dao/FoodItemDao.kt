@@ -1,23 +1,23 @@
 package com.saqeeb.foodapp.db.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.saqeeb.foodapp.db.entities.FoodItem
 
 @Dao
 interface FoodItemDao {
-    @Insert
-    suspend fun insertFoodItem(foodItem: FoodItem)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertFoodItem(foodItem: FoodItem):Long
 
-    @Query("DELETE FROM food")
-    suspend fun clearFoodTable()
 
     @Update
     suspend fun updateFoodItem(foodItem: FoodItem)
 
     @Query("SELECT * FROM food where category = :category")
-    suspend fun getFoodByCategory(category: String)
+    suspend fun getFoodByCategory(category: String): List<FoodItem>
 
 }

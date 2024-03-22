@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FoodApp</string>
+    <string name="time_and_dist">%s min \u00B7 %s Km</string>
+    <string name="ratting_and_count">%s \u00B7 %s + rattings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
