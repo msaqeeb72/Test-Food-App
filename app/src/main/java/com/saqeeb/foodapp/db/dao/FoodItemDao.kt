@@ -1,6 +1,5 @@
 package com.saqeeb.foodapp.db.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -20,8 +19,13 @@ interface FoodItemDao {
     @Query("SELECT * FROM food where category = :category")
     suspend fun getFoodByCategory(category: String): List<FoodItem>
 
+    @Query("SELECT * FROM food order by category")
+    suspend fun getAllFoods(): List<FoodItem>
+
     @Query("SELECT * FROM food where is_favorite = 1")
     suspend fun getFavoviteList(): List<FoodItem>
+    @Query("SELECT * FROM food where in_cart = 1")
+    suspend fun getCartList(): List<FoodItem>
 
     @Query("SELECT * FROM food where food_name LIKE '%'||:text||'%'")
     suspend fun searchFoodItem(text: String):List<FoodItem>

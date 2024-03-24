@@ -5,15 +5,20 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Category"
         android:gravity="center"
+        android:textSize="@dimen/_12ssp"
         android:fontFamily="@font/abel_regular"
-        android:padding="@dimen/_4sdp"
+        android:paddingVertical="@dimen/_4sdp"
+        android:paddingHorizontal="@dimen/_8sdp"
         />
 
     <View
+        android:id="@+id/indicator"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1sdp"
         android:background="@color/primaryColor" />

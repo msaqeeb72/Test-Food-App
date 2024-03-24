@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.saqeeb.foodapp.R
@@ -14,13 +15,13 @@ import com.saqeeb.foodapp.afterTextChanged
 import com.saqeeb.foodapp.databinding.FragmentFavoriteBinding
 import com.saqeeb.foodapp.db.entities.FoodItem
 import com.saqeeb.foodapp.ui.home.adapters.FoodListAdapter
-import com.saqeeb.foodapp.utils.FoodUpdateListener
+import com.saqeeb.foodapp.utils.FoodItemListener
 import com.saqeeb.foodapp.utils.NetworkResult
 import com.saqeeb.foodapp.viewmodels.FoodViewModel
 import kotlinx.coroutines.launch
 
 
-class FavoriteFragment : Fragment(),FoodUpdateListener {
+class FavoriteFragment : Fragment(),FoodItemListener {
 
     lateinit var binding:FragmentFavoriteBinding
     private val foodViewModel: FoodViewModel by activityViewModels()
@@ -30,12 +31,13 @@ class FavoriteFragment : Fragment(),FoodUpdateListener {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFavoriteBinding.inflate(layoutInflater)
+        foodViewModel.getFavoriteFoods()
 
-        adapter = FoodListAdapter(ArrayList(),this@FavoriteFragment)
+        adapter = FoodListAdapter(ArrayList(),this@FavoriteFragment,false)
         binding.foodRecyclerView.layoutManager = LinearLayoutManager(requireActivity(),
             RecyclerView.VERTICAL,false)
         binding.foodRecyclerView.adapter = adapter
-        foodViewModel.getFavoriteFoods()
+
         bindStateFlow()
         bindHandlers()
         return binding.root
@@ -53,8 +55,13 @@ class FavoriteFragment : Fragment(),FoodUpdateListener {
         }
     }
 
-    override fun foodUpdateClick(foodItem: FoodItem) {
+    override fun onFoodUpdate(foodItem: FoodItem) {
         foodViewModel.updateFoodInDb(foodItem)
+    }
+
+    override fun onFoodClicked(foodItem: FoodItem) {
+        foodViewModel.selectedFoodItem = foodItem
+        findNavController().navigate(R.id.action_favouriteFragment_to_foodInfoFragment)
     }
 
     private fun bindStateFlow() {

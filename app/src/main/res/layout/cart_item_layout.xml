@@ -23,7 +23,7 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="@dimen/_50sdp"
                 android:layout_height="@dimen/_50sdp"
-                android:src="@drawable/avatars"
+                networkSrc="@{foodItem.foodImage}"
                 />
 
 
@@ -61,9 +61,10 @@
                         android:layout_marginEnd="@dimen/_2sdp"
                         />
                     <TextView
+                        android:id="@+id/itemQty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{foodItem.cartQty}"
+                        android:text="@{String.valueOf(foodItem.cartQty)}"
                         />
                     <TextView
                         android:id="@+id/qtyPlus"

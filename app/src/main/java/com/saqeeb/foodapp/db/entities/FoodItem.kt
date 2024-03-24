@@ -38,7 +38,7 @@ data class FoodItem(
 
     @SerializedName("cart_qty")
     @ColumnInfo("cart_qty")
-    val cartQty: Int,
+    var cartQty: Int,
 
     @SerializedName("is_favorite")
     @ColumnInfo("is_favorite")

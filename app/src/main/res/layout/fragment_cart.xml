@@ -32,14 +32,14 @@
                 android:textSize="@dimen/_32ssp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/foodRecyclerView"
+                android:id="@+id/cartRecyclerView"
                 android:layout_margin="@dimen/_4sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_4sdp"
                 android:orientation="vertical"
                 tools:itemCount="5"
-                tools:listitem="@layout/food_item_layout" />
+                tools:listitem="@layout/cart_item_layout" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

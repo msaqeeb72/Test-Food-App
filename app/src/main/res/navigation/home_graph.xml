@@ -9,15 +9,52 @@
         android:id="@+id/homeFragment"
         android:name="com.saqeeb.foodapp.ui.home.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            app:enterAnim="@anim/animate_slide_up_enter"
+            app:exitAnim="@anim/animate_slide_up_exit"
+            app:popEnterAnim="@anim/animate_slide_down_enter"
+            app:popExitAnim="@anim/animate_slide_down_exit"
+            android:id="@+id/action_homeFragment_to_addFoodBottomSheet"
+            app:destination="@id/addFoodBottomSheet" />
+        <action
+            app:enterAnim="@anim/animate_slide_up_enter"
+            app:exitAnim="@anim/animate_slide_up_exit"
+            app:popEnterAnim="@anim/animate_slide_down_enter"
+            app:popExitAnim="@anim/animate_slide_down_exit"
+            android:id="@+id/action_homeFragment_to_foodInfoFragment"
+            app:destination="@id/foodInfoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.saqeeb.foodapp.ui.home.fragments.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_foodInfoFragment"
+            app:destination="@id/foodInfoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
         android:name="com.saqeeb.foodapp.ui.home.fragments.FavoriteFragment"
         android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            app:enterAnim="@anim/animate_slide_up_enter"
+            app:exitAnim="@anim/animate_slide_up_exit"
+            app:popEnterAnim="@anim/animate_slide_down_enter"
+            app:popExitAnim="@anim/animate_slide_down_exit"
+            android:id="@+id/action_favouriteFragment_to_foodInfoFragment"
+            app:destination="@id/foodInfoFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/addFoodBottomSheet"
+        android:name="com.saqeeb.foodapp.ui.home.fragments.AddFoodBottomSheet"
+        android:label="fragment_add_food_bottom_sheet"
+        tools:layout="@layout/fragment_add_food_bottom_sheet" />
+    <fragment
+        android:id="@+id/foodInfoFragment"
+        android:name="com.saqeeb.foodapp.ui.home.fragments.FoodInfoFragment"
+        android:label="fragment_food_info"
+        tools:layout="@layout/fragment_food_info" />
 </navigation>

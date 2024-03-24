@@ -8,9 +8,9 @@ import com.saqeeb.foodapp.R
 import com.saqeeb.foodapp.databinding.FoodItemLayoutBinding
 import com.saqeeb.foodapp.db.entities.FoodItem
 import com.saqeeb.foodapp.throttleClicks
-import com.saqeeb.foodapp.utils.FoodUpdateListener
+import com.saqeeb.foodapp.utils.FoodItemListener
 
-class FoodListAdapter(private var dataList: ArrayList<FoodItem>,private val foodUpdateListener: FoodUpdateListener) :
+class FoodListAdapter(private var dataList: ArrayList<FoodItem>, private val foodItemListener: FoodItemListener, private val fromHome:Boolean) :
     RecyclerView.Adapter<FoodListAdapter.ViewHolder>() {
 
 
@@ -26,7 +26,6 @@ class FoodListAdapter(private var dataList: ArrayList<FoodItem>,private val food
 
     fun updateDataList(dataList: ArrayList<FoodItem>) {
         this.dataList = dataList
-//        this.dataList.addAll(dataList)
         notifyDataSetChanged()
     }
 
@@ -47,18 +46,29 @@ class FoodListAdapter(private var dataList: ArrayList<FoodItem>,private val food
                     if (foodItem.inCart) R.drawable.icon_shopping_cart_filled else R.drawable.icon_shopping_cart
                 )
             )
+            binding.root.setOnClickListener {
+                foodItemListener.onFoodClicked(dataList[position])
+            }
 
             binding.favButton.setOnClickListener {
                 foodItem.isFavorite = foodItem.isFavorite.not()
                 notifyItemChanged(position)
-                foodUpdateListener.foodUpdateClick(foodItem)
+                foodItemListener.onFoodUpdate(foodItem)
                 it.throttleClicks()
-
+                if(!fromHome) {
+                    dataList.removeAt(position)
+                    notifyItemRemoved(position)
+                }
             }
             binding.cartButton.setOnClickListener {
                 foodItem.inCart = foodItem.inCart.not()
+                if(foodItem.inCart){
+                    foodItem.cartQty = 1
+                }else{
+                    foodItem.cartQty = 0
+                }
                 notifyItemChanged(position)
-                foodUpdateListener.foodUpdateClick(foodItem)
+                foodItemListener.onFoodUpdate(foodItem)
                 it.throttleClicks()
             }
         }

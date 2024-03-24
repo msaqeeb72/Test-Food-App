@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            type="com.saqeeb.foodapp.viewmodels.FoodViewModel"
+            name="viewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/_12sdp"
+        tools:context=".ui.home.fragments.AddFoodBottomSheet">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/abhaya_libre_extrabold"
+            android:text="Add Food Item"
+            android:textSize="@dimen/_20ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/foodNameEditText"
+                android:layout_width="match_parent"
+                android:text="@={viewModel.foodNameLiveData}"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abeezee_italic"
+                android:hint="Food Name"
+
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ingredientsEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.ingredientsLiveData}"
+                android:fontFamily="@font/abeezee_italic"
+                android:hint="Ingredients"
+
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/imageCaptureButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_20sdp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="@+id/foodImage"
+            app:layout_constraintStart_toStartOf="@+id/foodImage"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abel_regular"
+                android:gravity="center"
+                android:paddingVertical="@dimen/_12sdp"
+                android:text="Pick Image"
+                android:textColor="@color/primaryColor"
+                android:textSize="@dimen/_12sdp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/foodImage"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="wrap_content"
+            android:maxHeight="@dimen/_120sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/imageCaptureButton" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/addButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_20sdp"
+            app:cardBackgroundColor="@color/primaryColor"
+            app:cardCornerRadius="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="@+id/foodImage"
+            app:layout_constraintStart_toStartOf="@+id/foodImage"
+            app:layout_constraintTop_toBottomOf="@+id/foodImage">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/abel_regular"
+                android:gravity="center"
+                android:paddingVertical="@dimen/_12sdp"
+                android:text="Add"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
